@@ -36,9 +36,13 @@ class Chompy
   attr_accessor :generator_class
   attr_accessor :interpreter_class
 
-  def initialize
+  def initialize(&block)
     @generator_class   = Class.new(Generator)
     @interpreter_class = Class.new(Interpreter)
+
+    if block
+      instance_eval(&block)
+    end
   end
 
   def instruction(name, &block)
@@ -50,7 +54,15 @@ class Chompy
     generator_class.new
   end
 
+  def generate(&block)
+    generator.generate!(&block)
+  end
+
   def interpreter
     interpreter_class.new
+  end
+
+  def interpret(*args)
+    interpreter.interpret!(*args)
   end
 end

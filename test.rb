@@ -3,15 +3,16 @@
 $: << './lib'
 require 'chompy'
 
-chompy = Chompy.new
-chompy.instruction :puts do |*args|
-  Kernel.puts *args
+chompy = Chompy.new do
+  instruction :puts do |*args|
+    Kernel.puts *args
+  end
 end
 
-generator = chompy.generator
-code = generator.generate! do
+code = chompy.generate do
   puts "test"
 end
 
-interpreter = chompy.interpreter
-interpreter.interpret!(code)
+p code
+
+chompy.interpret(code)

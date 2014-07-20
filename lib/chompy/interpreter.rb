@@ -37,7 +37,7 @@ class Chompy
 
       arguments = __read_arguments(num_arguments)
 
-      puts "Code: #{name}(#{arguments.values.inspect[1..-2]})"
+      @@instructions[@@name_map.index(name)].call(arguments.values)
     end
 
     def __read_instruction
